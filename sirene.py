@@ -2,12 +2,12 @@
 
 import sqlite3
 import re
-import urllib.request
-import xml.etree.ElementTree as ET
-import os
-import io
-import gzip
-from ftplib import FTP
+# import urllib.request
+# import xml.etree.ElementTree as ET
+# import os
+# import io
+# import gzip
+# from ftplib import FTP
 
 
 def setupdb(fname='geneDB.sqlite'):

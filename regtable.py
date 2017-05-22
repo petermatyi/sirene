@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # - entrez id (genes table) gene id
 # - coding gene (factors table) factor id
@@ -46,5 +46,5 @@ for e_id in e_ids:
 
 with open('b.txt', 'w') as outfile:
     for i in sorted(regs):
-        print i[0], i[1]
+        print(i[0], i[1])
         outfile.write('%s\t%s\n' % (i[0], i[1]))
