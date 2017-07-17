@@ -214,5 +214,5 @@ def regtable(rfile, dbfile):
 
     with open('regulations.txt', 'w') as outfile:
         for i in sorted(regs):
-            # print(i[0], i[1])
+            print(i[0], i[1])
             outfile.write('%s\t%s\n' % (i[0], i[1]))
