@@ -177,7 +177,10 @@ def regtable(rfile, dbfile):
     e_ids = []
     with open(rfile) as infile:
         for line in infile:
-            e_ids.append(int(line.split()[0]))
+            try:
+                e_ids.append(int(line.strip().split(sep=',')[1].replace('"','')))
+            except:
+                pass
 
     conn = sqlite3.connect(dbfile)
     cur = conn.cursor()
