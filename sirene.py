@@ -210,7 +210,7 @@ def regtable(rfile, dbfile):
                     cur.execute('SELECT entrez_id FROM Genes WHERE gene_id = ? ', (rg[0],))
                     target = cur.fetchone()
                     try:
-                        for j in [i + 1 for i, x in enumerate(e_ids) if x == target[0]]:
+                        for j in [k + 1 for k, x in enumerate(e_ids) if x == target[0]]:
                             regs.append((i, j))
                     except:
                         continue
