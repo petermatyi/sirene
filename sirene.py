@@ -174,10 +174,26 @@ def factorparser(tffile, dbfile):
     conn.commit()
 
 
-def regtable(entrezfile, dbfile):
+def csvtotext(directory, dbfile):
+    infiles = ['exprsData.csv', 'genesymbols.csv', 'geneentrez.csv']
+    outfiles = ['expression.txt', 'gene_names.txt', 'entrezID.txt', 'regulation.txt']
+
+    for i in range(len(infiles)):
+        with open('./' + directory + '/' + infiles[i]) as infile:
+            reader = csv.reader(infile, delimiter=',', quotechar='"')
+            if not os.path.exists('./' + directory + '/data'):
+                os.makedirs('./' + directory + '/data')
+            with open('./' + directory + '/data/' + outfiles[i], 'w') as outfile:
+                j = 0
+                for row in reader:
+                    j += 1
+                    if j == 1:
+                        continue
+                    else:
+                        outfile.write('\t'.join(row[1:])+'\n')
 
     e_ids = []
-    with open(entrezfile) as infile:
+    with open('./' + directory + '/data/' + outfiles[len(infiles)-1]) as infile:
         for line in infile:
             try:
                 e_ids.append(int(line))
@@ -217,45 +233,7 @@ def regtable(entrezfile, dbfile):
                     except:
                         continue
 
-    with open('regulation.txt', 'w') as outfile:
+    with open('./' + directory + '/data/' + outfiles[len(outfiles)-1], 'w') as outfile:
         for i in sorted(set(regs)):
             print(i[0], i[1])
             outfile.write('%s\t%s\n' % (i[0], i[1]))
-
-
-def csvtotext(directory):
-
-    with open('./' + directory + '/exprsData.csv') as infile1:
-        reader = csv.reader(infile1, delimiter=',', quotechar='"')
-        if not os.path.exists('./' + directory + '/data'):
-            os.makedirs('./' + directory + '/data')
-        with open('./' + directory + '/data/expression.txt', 'w') as outfile1:
-            i = 0
-            for row in reader:
-                i += 1
-                if i == 1:
-                    continue
-                else:
-                    outfile1.write('\t'.join(row[1:])+'\n')
-
-    with open('./' + directory + '/genesymbols.csv') as infile2:
-        reader = csv.reader(infile2, delimiter=',', quotechar='"')
-        with open('./' + directory + '/data/gene_names.txt', 'w') as outfile2:
-            i = 0
-            for row in reader:
-                i += 1
-                if i == 1:
-                    continue
-                else:
-                    outfile2.write(row[1]+'\n')
-
-    with open('./' + directory + '/geneentrez.csv') as infile3:
-        reader = csv.reader(infile3, delimiter=',', quotechar='"')
-        with open('./' + directory + '/data/entrezID.txt', 'w') as outfile3:
-            i = 0
-            for row in reader:
-                i += 1
-                if i == 1:
-                    continue
-                else:
-                    outfile3.write(row[1]+'\n')
